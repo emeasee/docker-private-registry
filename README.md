@@ -16,9 +16,12 @@ https://www.digitalocean.com/community/articles/how-to-create-a-ssl-certificate-
    VOLUME /etc/ssl/self-signed-certs/docker-registry.key
 
 # Run it
+
 -- To build, make sure you have Docker installed, clone this repo somewhere, and then run:
+
 -- if you build it to run in development then in the dockerfile, comment out 'ADD ./config_s3.yml   /docker-registry/config/config.yml'
-     docker build -t <yourname>/docker-private-registry .
+    
+    docker build -t <yourname>/docker-private-registry .
      
  or
  
