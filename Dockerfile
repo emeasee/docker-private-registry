@@ -8,13 +8,12 @@ MAINTAINER edward "www.twitter.com/wizebee"
 RUN apt-get update
 
 # 1st line are dependencies that allow use of add-apt-repository
-#3rd line added in order to get the latest nginx
-#the 5th line install nginx, supervisor and apache2-utils which provides htpasswd 
-RUN apt-get install -y software-properties-common
-RUN apt-get install -y python-software-properties 
-RUN add-apt-repository -y ppa:nginx/stable 
-RUN apt-get -y update   
-RUN apt-get install -y nginx apache2-utils supervisor
+#2nd line added in order to get the latest nginx
+## the 3rd line install nginx, supervisor and apache2-utils which provides htpasswd
+RUN apt-get install -y software-properties-common python-software-properties &&\
+    add-apt-repository -y ppa:nginx/stable &&\
+    apt-get update &&\
+    apt-get install -y nginx apache2-utils supervisor
 
 #docker expects nginx to be ran in non daemon mode
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
@@ -43,9 +42,9 @@ ADD ./docker-registry.conf  /etc/nginx/sites-available/
 RUN  ln -s /etc/nginx/sites-available/docker-registry.conf  /etc/nginx/sites-enabled/docker-registry.conf 
 
 #Adding Supervisor’s configuration file
-#The default file is called supervisord.conf and is located in /etc/supervisor/conf.d/.
+#The default file is called supervisord.conf and is located in /etc/supervisor/supervisord.conf
 #back up the default supervisord.conf
-RUN cp /etc/supervisor/conf.d/supervisord.conf  /etc/supervisor/conf.d/supervisord.conf.bak 
+RUN cp /etc/supervisor/supervisord.conf  /etc/supervisor/supervisord.conf.bak 
 ADD ./supervisord.conf  /etc/supervisor/conf.d/supervisord.conf
 
 ADD ./config_s3.yml   /docker-registry/config/config.yml
