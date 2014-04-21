@@ -10,8 +10,8 @@ RUN apt-get update
 # 1st line are dependencies that allow use of add-apt-repository
 #3rd line added in order to get the latest nginx
 #the 5th line install nginx, supervisor and apache2-utils which provides htpasswd 
-RUN apt-get install software-properties-common
-RUN apt-get install python-software-properties 
+RUN apt-get install -y software-properties-common
+RUN apt-get install -y python-software-properties 
 RUN add-apt-repository -y ppa:nginx/stable 
 RUN apt-get -y update   
 RUN apt-get install -y nginx apache2-utils supervisor
