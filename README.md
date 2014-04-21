@@ -1,11 +1,17 @@
-# Adds Niginx, supervisor and apache2_utils to docker private registry.
+#  Dockerfile for Private docker registry
 
-# Since we are mounting certain volumes, you must make sure those directories exists
+Adds Niginx, supervisor and apache2_utils to docker private registry.
+
+# On your server create directories to mount as volumes
+
      VOLUME /etc/nginx/sites-enabled
      VOLUME /var/log/nginx
-    VOLUME /etc/nginx/docker-registry.htpasswd
-#create and mounts ssl certificates. 
-#See tutorial here: https://www.digitalocean.com/community/articles/how-to-create-a-ssl-certificate-on-nginx-for-ubuntu-12-04
+     VOLUME /etc/nginx/docker-registry.htpasswd
+     
+#create and mounts ssl certificates. See tutorial for certificates: 
+
+https://www.digitalocean.com/community/articles/how-to-create-a-ssl-certificate-on-nginx-for-ubuntu-12-04
+ 
    VOLUME /etc/ssl/self-signed-certs/docker-registry.crt 
    VOLUME /etc/ssl/self-signed-certs/docker-registry.key
 
@@ -13,6 +19,10 @@
 -- To build, make sure you have Docker installed, clone this repo somewhere, and then run:
 -- if you build it to run in development then in the dockerfile, comment out 'ADD ./config_s3.yml   /docker-registry/config/config.yml'
      docker build -t <yourname>/docker-private-registry .
+     
+ or
+ 
+     docker build -t <repo/image name>/ /path/to/dockerfiledir
 
 -- Or, alternately, build directly from the github repo:
 

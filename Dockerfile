@@ -8,11 +8,11 @@ MAINTAINER edward "www.twitter.com/wizebee"
 RUN apt-get update
 
 # 1st line are dependencies that allow use of add-apt-repository
+#2nd line added in order to get the latest nginx
+## the 3rd line install nginx, supervisor and apache2-utils which provides htpasswd 
 RUN apt-get install software-properties-common python-software-properties &&\
- #2nd line added in order to get the latest nginx
     add-apt-repository -y ppa:nginx/stable &&\
     apt-get update &&\   
-# install nginx, supervisor and apache2-utils which provides htpasswd 
    apt-get install -y nginx apache2-utils supervisor
 
 #docker expects nginx to be ran in non daemon mode
