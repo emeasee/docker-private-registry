@@ -10,10 +10,17 @@ RUN apt-get update
 # 1st line are dependencies that allow use of add-apt-repository
 #2nd line added in order to get the latest nginx
 ## the 3rd line install nginx, supervisor and apache2-utils which provides htpasswd
-RUN apt-get install -y software-properties-common python-software-properties &&\
-    add-apt-repository -y ppa:nginx/stable &&\
-    apt-get update &&\
-    apt-get install -y nginx apache2-utils supervisor
+#RUN apt-get install -y software-properties-common python-software-properties &&\
+    #add-apt-repository -y ppa:nginx/stable &&\
+    #apt-get update &&\
+    #apt-get install -y nginx apache2-utils supervisor
+    
+RUN wget http://nginx.org/keys/nginx_signing.key &&\
+   apt-key add nginx_signing.key && rm nginx_signing.key &&\ 
+   echo "deb http://nginx.org/packages/ubuntu/ saucy nginx"  > /etc/apt/sources.list.d/nginx-saucy.list &&\
+   echo "deb-src http://nginx.org/packages/ubuntu/ saucy nginx" >> /etc/apt/sources.list.d/nginx-saucy.list &&\
+   apt-get update &&\
+   apt-get install -y nginx apache2-utils supervisor
 
 #docker expects nginx to be ran in non daemon mode
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
