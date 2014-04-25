@@ -24,13 +24,13 @@ RUN wget http://nginx.org/keys/nginx_signing.key &&\
 
 #docker expects nginx to be ran in non daemon mode
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-
+RUN echo 
 #enable access from your container to a directory on the host machine (i.e. mounting it)
 #note all the mounted directory must be exist/created on your physical server
 VOLUME /etc/nginx/sites-enabled
 VOLUME /var/log/nginx
 VOLUME /etc/nginx/docker-registry.htpasswd
- #chose tomount the ssl certificate instaed of adding
+ #chose to mount the ssl certificate instaed of adding
 VOLUME /etc/ssl/self-signed-certs/docker-registry.crt 
 VOLUME /etc/ssl/self-signed-certs/docker-registry.key
 
@@ -44,7 +44,7 @@ VOLUME /etc/ssl/self-signed-certs/docker-registry.key
 
 #to avoid conflicting server reponse delete the default file
 RUN rm /etc/nginx/nginx.conf 
-ADD /etc/nginx/nginx.conf   /etc/nginx/nginx.conf
+ADD    /etc/nginx/nginx.conf   /etc/nginx/
 
 RUN cp /etc/nginx/sites-enabled/default    /etc/nginx/sites-enabled/default.bak
 RUN rm  /etc/nginx/sites-enabled/default
@@ -59,6 +59,6 @@ ADD ./supervisord.conf  /etc/supervisor/conf.d/supervisord.conf
 
 ADD ./config_s3.yml   /docker-registry/config/config.yml
 
-EXPOSE 80 443
+EXPOSE 80 443 22
 
 CMD ["/usr/bin/supervisord"]
