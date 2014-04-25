@@ -44,7 +44,7 @@ VOLUME /etc/ssl/self-signed-certs/docker-registry.key
 
 #to avoid conflicting server reponse delete the default file
 RUN rm /etc/nginx/nginx.conf 
-ADD    /etc/nginx/nginx.conf   /etc/nginx/
+ADD  ./nginx.conf   /etc/nginx/
 
 RUN cp /etc/nginx/sites-enabled/default    /etc/nginx/sites-enabled/default.bak
 RUN rm  /etc/nginx/sites-enabled/default
